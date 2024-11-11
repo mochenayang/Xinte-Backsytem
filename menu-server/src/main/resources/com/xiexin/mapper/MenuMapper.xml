@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiexin.mapper.MenuMapper">
+
+    <delete id="deleteMenuList">
+        DELETE FROM menulist WHERE menuId IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="editMenuList">
+        UPDATE menulist
+        <set>
+            <if test="menuName != null">
+                menuName = #{menuName},
+            </if>
+            <if test="icon != null">
+                icon = #{icon},
+            </if>
+            <if test="menu_type != null">
+                menu_type = #{menu_type},
+            </if>
+            <if test="path != null">
+                path = #{path},
+            </if>
+            <if test="file_path != null">
+                file_path = #{file_path},
+            </if>
+            <if test="roles != null">
+                roles = #{roles},
+            </if>
+            <if test="link_type != null">
+                link_type = #{link_type},
+            </if>
+            <if test="out_type != null">
+                out_type = #{out_type},
+            </if>
+            <if test="create_time != null">
+                create_time = #{create_time},
+            </if>
+            <if test="last_time != null">
+                last_time = #{last_time},
+            </if>
+            <if test="parent_id != null">
+                parent_id = #{parent_id},
+            </if>
+            <if test="parents_id != null">
+                parents_id = #{parents_id},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        WHERE menuId = #{menuId}
+    </update>
+</mapper>

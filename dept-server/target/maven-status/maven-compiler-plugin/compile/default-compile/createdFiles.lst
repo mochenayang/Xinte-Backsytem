@@ -1,0 +1,7 @@
+com\xiexin\utils\BuildChildrenUtils.class
+com\xiexin\entity\Result.class
+com\xiexin\entity\Dept.class
+com\xiexin\mapper\DeptMapper.class
+com\xiexin\DeptApplication.class
+com\xiexin\controller\DeptController.class
+com\xiexin\service\DeptService.class

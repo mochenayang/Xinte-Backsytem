@@ -1,0 +1,34 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/zyz
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+
+  application:
+    name: userservice
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  mail:
+    username: 760064199@qq.com
+    # 邮箱授权码
+    password: acksgwmdjcyvbchi
+    host: smtp.qq.com
+    default-encoding: utf-8
+    #开启加密验证
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: ture

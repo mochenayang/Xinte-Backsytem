@@ -1,0 +1,48 @@
+server:
+  port: 10010
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/zyz
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848 #nacos地址
+    gateway:
+      routes:
+        - id: user-service #路由标识 必须唯一
+          uri: lb://userservice # 路由的目标地址
+          predicates: # 路由断言
+            - Path=/users/** #判断是否以/user开头
+        - id: role-service
+          uri: lb://roleservice # 路由的目标地址
+          predicates: # 路由断言
+            - Path=/rolelist/**
+        - id: dept-service
+          uri: lb://deptservice
+          predicates: # 路由断言
+            - Path=/deptlist/**
+        - id: menu-service
+          uri: lb://menuservice # 路由的目标地址
+          predicates: # 路由断言
+            - Path=/menus/**
+        - id: log-service
+          uri: lb://logservice # 路由的目标地址
+          predicates: # 路由断言
+            - Path=/loglists/**
+      #配置cors跨域
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            #允许跨域的url * 则允许全部
+            allowedOrigins: '*'
+            # 允许跨域的方法 * 则全部
+            allowedMethods: '*'
+            # 请求头
+            allowedHeaders: "*"
+            # 跨域预检时间
+            maxAge: 1800

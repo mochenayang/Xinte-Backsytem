@@ -1,0 +1,6 @@
+com\xiexin\entity\Result.class
+com\xiexin\controller\RoleController.class
+com\xiexin\entity\Role.class
+com\xiexin\RoleApplication.class
+com\xiexin\mapper\RoleMapper.class
+com\xiexin\service\RoleService.class

@@ -1,0 +1,7 @@
+com\xiexin\LogApplication.class
+com\xiexin\mapper\LoginLogMapper.class
+com\xiexin\service\LoginLogService.class
+com\xiexin\controller\LogController.class
+com\xiexin\controller\LoginLogController.class
+com\xiexin\dto\LoginLogQuery.class
+com\xiexin\entity\LoginLog.class

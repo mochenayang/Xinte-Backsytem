@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiexin.mapper.OperationLogMapper">
+
+    <select id="getLogsWithPagination" resultType="com.xiexin.entity.OperationLog">
+        SELECT id, operator, platform, module, timestamp, result, content
+        FROM operation_log
+        WHERE (operator = #{operator} OR #{operator} IS NULL)
+          AND (platform = #{platform} OR #{platform} IS NULL)
+          AND (module = #{module} OR #{module} IS NULL)
+          AND (content LIKE CONCAT('%', #{content}, '%') OR #{content} IS NULL)
+          AND (timestamp BETWEEN #{startDate} AND #{endDate} OR (#{startDate} IS NULL AND #{endDate} IS NULL))
+        ORDER BY timestamp DESC
+    </select>
+
+    <insert id="insertOperationLog" parameterType="com.xiexin.entity.OperationLog">
+        INSERT INTO operation_log
+        (operator, platform, module, timestamp, result, content)
+        VALUES
+        (#{operator}, #{platform}, #{module}, #{timestamp}, #{result}, #{content})
+    </insert>
+
+    <select id="getTotalLogCount" resultType="long">
+        SELECT COUNT(*)
+        FROM operation_log
+        WHERE (operator = #{operator} OR #{operator} IS NULL)
+          AND (platform = #{platform} OR #{platform} IS NULL)
+          AND (module = #{module} OR #{module} IS NULL)
+          AND (content LIKE CONCAT('%', #{content}, '%') OR #{content} IS NULL)
+          AND (timestamp BETWEEN #{startDate} AND #{endDate} OR (#{startDate} IS NULL AND #{endDate} IS NULL))
+    </select>
+
+</mapper>

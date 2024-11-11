@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiexin.mapper.UserMapper">
+
+    <select id="page" resultType="com.xiexin.entity.User">
+        SELECT * FROM user WHERE dept IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        LIMIT #{start}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="integer">
+        SELECT count(*) FROM user WHERE dept IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <delete id="deleteByIds">
+        DELETE FROM user WHERE user.user_id IN
+        <foreach collection="user_ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updateUser">
+        update user
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="phonenumber != null">
+                phonenumber = #{phonenumber},
+            </if>
+            <if test="dept != null">
+                dept = #{dept},
+            </if>
+            <if test="role != null">
+                role = #{role},
+            </if>
+        </set>
+        where user_id=#{user_id}
+    </update>
+</mapper>

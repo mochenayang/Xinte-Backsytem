@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiexin.mapper.LoginLogMapper">
+
+    <!-- 分页查询所有登录日志 -->
+    <select id="getLogsWithPagination" resultType="com.xiexin.entity.LoginLog">
+        SELECT user_id, username, ip, timestamp, status, address
+        FROM login_log
+        WHERE (username = #{username} OR #{username} IS NULL)
+          AND (ip = #{ip} OR #{ip} IS NULL)
+          AND (status = #{status} OR #{status} IS NULL)
+          AND (timestamp BETWEEN #{startDate} AND #{endDate} OR (#{startDate} IS NULL AND #{endDate} IS NULL))
+        ORDER BY timestamp DESC
+    </select>
+
+    <!-- 新增  -->
+    <insert id="insertLoginLog" parameterType="com.xiexin.entity.LoginLog">
+        INSERT INTO login_log
+            (user_id, username, ip, timestamp, status, address)
+        VALUES
+            (#{userId}, #{username}, #{ip}, #{timestamp}, #{status}, #{address})
+    </insert>
+
+
+    <!-- 查询总记录数 -->
+    <select id="getTotalLogCount" resultType="long">
+        SELECT COUNT(*)
+        FROM login_log
+        WHERE (username = #{username} OR #{username} IS NULL)
+          AND (ip = #{ip} OR #{ip} IS NULL)
+          AND (status = #{status} OR #{status} IS NULL)
+          AND (timestamp BETWEEN #{startDate} AND #{endDate} OR (#{startDate} IS NULL AND #{endDate} IS NULL))
+    </select>
+
+</mapper>
